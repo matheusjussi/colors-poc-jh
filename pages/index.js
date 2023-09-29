@@ -10,6 +10,9 @@ const ColorPicker = () => {
     colors: [],
   });
 
+  const [columnsGrid, setColumnsGrid] = useState(7);
+  const columnsGridOptions = new Array(20).fill('').map((_, index) => index + 1);
+
   const [currentColorSort, setCurrentColorSort] = useState([
     'hue',
     'lightness',
@@ -7366,6 +7369,10 @@ const ColorPicker = () => {
     }
   };
 
+  const handleChangeColumnsGrid = (event) => {
+    setColumnsGrid(event.target.value);
+  }
+
   const applySortFilter = (sort) => {
     if (currentColorSort.includes(sort)) {
       setCurrentColorSort(
@@ -7416,11 +7423,18 @@ const ColorPicker = () => {
         >
           Order By Lightness
         </button>
+        <select onChange={handleChangeColumnsGrid}>
+          {
+            columnsGridOptions.map((column) => (
+              <option key={column} value={column}>{column}</option>
+            ))
+          }
+        </select>
       </div>
       <br />
       <br />
       <h1 className="text-[#000000]"> Statement Collection </h1>
-      <div className="grid grid-cols-6 mt-2">
+      <div className={`grid gap-[8px] mt-2`} style={{ gridTemplateColumns: `repeat(${columnsGrid}, 1fr)` }}>
         {colors?.statement.map((color, index) => (
           <span
             key={index}
@@ -7444,7 +7458,7 @@ const ColorPicker = () => {
       <hr />
       <br />
       <h1 className="text-[#000000]"> Magnolia Collection </h1>
-      <div className="grid grid-cols-6 mt-2">
+      <div className={`grid gap-[8px] mt-2`} style={{ gridTemplateColumns: `repeat(${columnsGrid}, 1fr)` }}>
         {colors?.magnolia.map((color, index) => (
           <span
             key={index}
@@ -7477,7 +7491,7 @@ const ColorPicker = () => {
             </h2>
             <br />
             <hr />
-            <div className="grid grid-cols-5 mt-2">
+            <div  className={`grid gap-[8px] mt-2`} style={{ gridTemplateColumns: `repeat(${columnsGrid}, 1fr)` }}>
               {colors?.dream
                 ?.filter((colorDream, index) => color === colorDream.Color)
                 .map((colorDream, index) => (
