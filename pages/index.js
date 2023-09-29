@@ -7423,7 +7423,7 @@ const ColorPicker = () => {
         >
           Order By Lightness
         </button>
-        <select onChange={handleChangeColumnsGrid}>
+        <select value={columnsGrid} onChange={handleChangeColumnsGrid}>
           {
             columnsGridOptions.map((column) => (
               <option key={column} value={column}>{column}</option>
